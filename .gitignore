@@ -42,8 +42,3 @@ next-env.d.ts
 
 # markdown
 *.md
-
-# ai
-AGENTS.md
-CLAUDE.md
-.gemini
