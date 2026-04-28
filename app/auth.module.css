@@ -1,0 +1,235 @@
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.orb1 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: 50%;
+  filter: blur(80px);
+  top: -150px;
+  right: -100px;
+  pointer-events: none;
+  animation: float 8s ease-in-out infinite;
+}
+
+.orb2 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(236, 72, 153, 0.08);
+  border-radius: 50%;
+  filter: blur(80px);
+  bottom: -100px;
+  left: -50px;
+  pointer-events: none;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-xl);
+  animation: fadeInUp 600ms ease-out;
+  position: relative;
+  z-index: 1;
+}
+
+.brandSection {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-glow);
+}
+
+.heading {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+  letter-spacing: -0.5px;
+}
+
+.subheading {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.errorAlert {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--danger-400);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  animation: fadeIn 200ms ease-out;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.switchLink {
+  text-align: center;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.switchLink a {
+  color: var(--primary-400);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.switchLink a:hover {
+  color: var(--primary-300);
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+  }
+
+  .heading {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Login Wrapper - Side by Side Layout */
+.loginWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 600ms ease-out;
+}
+
+/* Demo Credentials Card */
+.demoCard {
+  width: 280px;
+  background: var(--bg-card);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.1);
+  animation: slideInRight 600ms ease-out 200ms both;
+  flex-shrink: 0;
+}
+
+.demoHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.demoIcon {
+  font-size: 24px;
+}
+
+.demoTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.demoDesc {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-4);
+}
+
+.demoCredentials {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.demoField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-3);
+  background: var(--bg-glass);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.demoLabel {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+}
+
+.demoValue {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--primary-300);
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .loginWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .demoCard {
+    width: 100%;
+    max-width: 440px;
+  }
+}

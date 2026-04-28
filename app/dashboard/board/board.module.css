@@ -1,0 +1,568 @@
+.boardPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.boardHeader {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: rgba(15, 15, 35, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.backBtn:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+
+.boardInfo {
+  flex: 1;
+}
+
+.boardTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.boardDesc {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* Kanban Container */
+.kanbanContainer {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-6);
+  display: flex;
+  gap: var(--space-5);
+  align-items: flex-start;
+}
+
+/* Column */
+.column {
+  min-width: 300px;
+  max-width: 300px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 160px);
+  backdrop-filter: blur(10px);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  flex-shrink: 0;
+  animation: fadeInUp 300ms ease-out;
+  animation-fill-mode: backwards;
+}
+
+.column:nth-child(1) { animation-delay: 0ms; }
+.column:nth-child(2) { animation-delay: 50ms; }
+.column:nth-child(3) { animation-delay: 100ms; }
+.column:nth-child(4) { animation-delay: 150ms; }
+.column:nth-child(5) { animation-delay: 200ms; }
+
+.columnDragging {
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+.columnOver {
+  border-color: var(--primary-400);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  padding: var(--space-4);
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+  cursor: grab;
+}
+
+.columnHeader:active {
+  cursor: grabbing;
+}
+
+.columnColorDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.columnTitle {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.columnTitleInput {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color-focus);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.columnCount {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  background: var(--bg-glass);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+}
+
+.columnActions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.columnHeader:hover .columnActions {
+  opacity: 1;
+}
+
+.colActionBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+  font-size: 13px;
+}
+
+.colActionBtn:hover {
+  background: var(--bg-glass-hover);
+  color: var(--text-primary);
+}
+
+.colActionBtn.deleteCol:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger-400);
+}
+
+/* Column Body - Cards List */
+.columnBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 60px;
+}
+
+.columnBody::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Card */
+.card {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  cursor: grab;
+  transition: all var(--transition-fast);
+  position: relative;
+  touch-action: none;
+}
+
+.card:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-color-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.cardDragging {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.cardOverlay {
+  background: var(--bg-secondary);
+  border: 1px solid var(--primary-400);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-xl), 0 0 30px rgba(99, 102, 241, 0.2);
+  transform: rotate(3deg) scale(1.03);
+  cursor: grabbing;
+  z-index: var(--z-drag-overlay);
+}
+
+.cardLabel {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: var(--space-2);
+}
+
+.cardTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+  word-break: break-word;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.cardDueDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.dueFuture {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.dueUrgent {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+.dueOverdue {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.cardDesc {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Add Card */
+.addCardBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.addCardBtn:hover {
+  background: var(--bg-glass);
+  color: var(--text-secondary);
+}
+
+.addCardForm {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.addCardInputRow {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Add Column */
+.addColumnBtn {
+  min-width: 300px;
+  max-width: 300px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: var(--bg-glass);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.addColumnBtn:hover {
+  border-color: var(--primary-400);
+  color: var(--primary-400);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.addColumnForm {
+  min-width: 300px;
+  max-width: 300px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: fadeIn 200ms ease-out;
+}
+
+.colorPicker {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.colorSwatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.colorSwatch:hover {
+  transform: scale(1.2);
+}
+
+.colorSwatchActive {
+  border-color: white;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  transform: scale(1.2);
+}
+
+.addColumnActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Card Detail Modal */
+.cardDetailModal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.cardDetailSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sectionLabel {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-tertiary);
+}
+
+.labelPicker {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.labelSwatch {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.labelSwatch:hover {
+  transform: scale(1.1);
+}
+
+.labelSwatchActive {
+  border-color: white;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.labelSwatchActive::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.clearLabelBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--border-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+}
+
+.clearLabelBtn:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+/* Activity Log */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.activityItem {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  padding: var(--space-2);
+  background: var(--bg-glass);
+  border-radius: var(--radius-sm);
+  align-items: flex-start;
+}
+
+.activityIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.activityContent {
+  flex: 1;
+  line-height: 1.5;
+}
+
+.activityTime {
+  color: var(--text-tertiary);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.emptyActivity {
+  text-align: center;
+  padding: var(--space-4);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-xs);
+}
+
+.deleteCardSection {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Loading */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .boardHeader {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .kanbanContainer {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .column {
+    min-width: 280px;
+    max-width: 280px;
+  }
+
+  .addColumnBtn,
+  .addColumnForm {
+    min-width: 280px;
+    max-width: 280px;
+  }
+
+  .boardTitle {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .column {
+    min-width: 260px;
+    max-width: 260px;
+  }
+
+  .addColumnBtn,
+  .addColumnForm {
+    min-width: 260px;
+    max-width: 260px;
+  }
+}
